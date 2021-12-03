@@ -1,4 +1,11 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import components from './components/index';
 
-createApp(App).mount('#app');
+const app = createApp(App);
+
+console.log(components);
+
+components.forEach((component: any) => app.component(component.name, component));
+
+app.mount('#app');

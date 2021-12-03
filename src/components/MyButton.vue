@@ -1,7 +1,10 @@
 <template>
-  <button class="button is-primary" @click="onClick">
-    <!-- @slot default inner button content -->
-    <slot></slot>
+  <button
+    class="button"
+    :disabled="disabled"
+    @click="onClick"
+  >
+    <slot />
   </button>
 </template>
 
@@ -9,29 +12,30 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'my-button',
-
-  methods: {
-    onClick() {
-      /**
-       * Click event
-       *
-       * @event click
-       */
-      this.$emit('click');
-    },
+  name: 'MyButton',
+  props: {
+    onClick: { type: Function as ()=> void, require: true },
+    disabled: { type: Boolean, require: false },
   },
 });
 </script>
 
 <style scoped>
-button {
-  border: 1px solid #eee;
-  border-radius: 3px;
-  background-color: #ffffff;
-  cursor: pointer;
-  font-size: 15pt;
-  padding: 3px 10px;
-  margin: 10px;
-}
+  .button {
+    max-height: 60px;
+    width: 220px;
+    padding: 16px 56px;
+    color: #ffffff;
+    background: #f65261;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .button:hover {
+    background: #bb3440;
+  }
+  .button:disabled {
+    background: #9b9494;
+  }
 </style>
