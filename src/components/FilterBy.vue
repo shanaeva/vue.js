@@ -29,7 +29,6 @@ import { defineComponent, PropType } from 'vue';
 type ButtonType = {
   name: string,
   method: ()=> void,
-  isActive: boolean,
 };
 
 export default defineComponent({

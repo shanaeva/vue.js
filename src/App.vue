@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="main">
     <search-input
       :films="allFilms"
       @findFilm="findFilm"
@@ -52,7 +52,7 @@ export default defineComponent({
 body {
   background-color: #555555;
 }
-.wrapper {
+.main {
   height: 100%;
   background-color: #555555;
   padding: 20px;
