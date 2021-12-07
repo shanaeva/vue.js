@@ -1,10 +1,10 @@
 <template>
-  <h2 class="circle">
+  <h2 class="rating">
     {{ value }}
   </h2>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -15,7 +15,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  .circle {
+  .rating {
     width: 70px;
     height: 70px;
     border: 1px solid #ffffff;

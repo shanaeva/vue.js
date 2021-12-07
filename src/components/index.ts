@@ -1,5 +1,4 @@
-import MyButton from './MyButton.vue';
-import ImageItem from './ImageItem.vue';
 import FilterBy from './FilterBy.vue';
+import ImageItem from './ImageItem.vue';
 
-export default [MyButton, ImageItem, FilterBy];
+export default [FilterBy, ImageItem];

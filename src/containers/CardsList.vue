@@ -10,6 +10,7 @@
         v-for="card in cards"
         :key="card.id"
         :card="card"
+        :on-click="()=> onClickCard(card)"
       />
     </div>
     <div
@@ -28,7 +29,15 @@ import { CardType } from '@/types';
 
 export default defineComponent({
   components: { Card },
-  props: { cards: { type: Array as PropType<Array<CardType>>, required: true } },
+  props: {
+    cards: { type: Array as PropType<Array<CardType>>, required: true },
+  },
+  emits: ['onClickCard'],
+  methods: {
+    onClickCard(card: CardType) {
+      this.$emit('onClickCard', card);
+    },
+  },
 });
 </script>
 
@@ -47,5 +56,6 @@ export default defineComponent({
     justify-content: center;
     height: 600px;
     color: #ffffff;
+    font-size: 48px;
   }
 </style>

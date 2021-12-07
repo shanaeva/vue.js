@@ -1,17 +1,25 @@
 <template>
-  <div class="wrapper">
-    <div
-      v-if="films.length > 0"
-      class="found-films"
-    >
-      {{ films.length }} movie found
+  <div class="sorter">
+    <div v-if="genre && !isShowSearch">
+      Film by {{ genre }} genre
     </div>
-    <filter-by
-      label="SORT BY"
-      :button-primary="{ name: 'RELEASE DATE', method: sortByDate }"
-      :button-secondary="{ name: 'RATING', method: sortByRating }"
-      :is-right="true"
-    />
+    <div
+      v-else
+      class="filter-by-wrapper"
+    >
+      <div
+        v-if="films.length > 0"
+        class="found-films"
+      >
+        {{ films.length }} movie found
+      </div>
+      <filter-by
+        label="SORT BY"
+        :button-primary="{ name: 'RELEASE DATE', method: sortByDate }"
+        :button-secondary="{ name: 'RATING', method: sortByRating }"
+        :is-right="true"
+      />
+    </div>
   </div>
 </template>
 
@@ -22,7 +30,10 @@ import { CardType } from '@/types';
 export default defineComponent({
   props: {
     films: { type: Array as PropType<Array<CardType>>, required: true },
+    genre: { type: String, required: true },
+    isShowSearch: { type: Boolean, required: true },
   },
+  emits: ['sortByDate', 'sortByRating'],
   data: () => ({ isActiveDate: true, isActiveRating: false }),
   methods: {
     sortByDate() {
@@ -40,13 +51,15 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  .wrapper{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .sorter{
     color: #ffffff;
     padding: 16px 56px;
     background-color: #555555;
+  }
+  .filter-by-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   .found-films{
     font-weight: bold;

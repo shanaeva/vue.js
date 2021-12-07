@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sorter"
+    class="filter-by"
     :class="{ end: isRight }"
   >
     <p class="label">
@@ -58,7 +58,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  .sorter {
+  .filter-by {
     display: flex;
     align-items: center;
     color: #ffffff;

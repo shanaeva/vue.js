@@ -1,5 +1,8 @@
 <template>
-  <div class="wrapper">
+  <div
+    class="card"
+    @click="onClick"
+  >
     <image-item :src="card.src" />
     <div class="header">
       <h1 class="title">
@@ -16,22 +19,22 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { CardType } from '@/types';
-import ImageItem from '@/components/ImageItem.vue';
 
 export default defineComponent({
   name: 'Card',
-  components: { ImageItem },
   props: {
     card: { type: Object as PropType<CardType>, required: true },
+    onClick: { type: Function as ()=> void, required: true },
   },
 });
 </script>
 
 <style scoped>
-  .wrapper {
+  .card {
     max-width: 300px;
     margin: 26px;
     color: #9b9999;
+    cursor: pointer;
   }
   .header {
     display: flex;

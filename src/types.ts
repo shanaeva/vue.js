@@ -5,4 +5,6 @@ export type CardType = {
   year: number,
   genre: string,
   rating: number,
+  duration: number,
+  description: string;
 };

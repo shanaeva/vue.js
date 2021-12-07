@@ -1,5 +1,5 @@
 <template>
-  <div class="img-wrapper">
+  <div class="img-item">
     <img
       class="img"
       :src="src"
@@ -24,12 +24,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  .img-wrapper {
+  .img-item {
   width: 300px;
   height: 400px;
   border-radius: 4px;
   overflow: hidden;
-  cursor: pointer;
   }
   .img {
   object-fit: cover;

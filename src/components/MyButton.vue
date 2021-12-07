@@ -1,6 +1,6 @@
 <template>
   <button
-    class="button"
+    class="my-button"
     :disabled="disabled"
     @click="onClick"
   >
@@ -14,14 +14,14 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'MyButton',
   props: {
-    onClick: { type: Function as ()=> void, require: true },
+    onClick: { type: Function as ()=> void, required: true },
     disabled: { type: Boolean, require: false },
   },
 });
 </script>
 
 <style scoped>
-  .button {
+  .my-button {
     max-height: 60px;
     width: 220px;
     padding: 16px 56px;
@@ -32,10 +32,10 @@ export default defineComponent({
     cursor: pointer;
     text-transform: uppercase;
   }
-  .button:hover {
+  .my-button:hover {
     background: #bb3440;
   }
-  .button:disabled {
+  .my-button:disabled {
     background: #9b9494;
   }
 </style>

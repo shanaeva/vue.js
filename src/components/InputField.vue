@@ -1,36 +1,37 @@
 <template>
   <input
     type="text"
-    class="input"
-    :value="value"
+    class="input-field"
+    :value="modelValue"
     :disabled="isDisable"
     @input="updateInput"
   >
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'InputField',
   props: {
+    modelValue: { type: [String, Number], required: true },
     isDisable: {
       type: Boolean,
       require: false,
       default: false,
     },
-    value: { type: [String, Number], require: true },
   },
+  emits: ['update:modelValue'],
   methods: {
-    updateInput(event) {
-      this.$emit('update:value', event.target.value);
+    updateInput(event: {target: {value: string}}) {
+      this.$emit('update:modelValue', event.target.value);
     },
   },
 });
 </script>
 
 <style scoped>
-  .input {
+  .input-field {
     padding: 16px;
     max-height: 60px;
     width: 100%;
@@ -39,7 +40,7 @@ export default defineComponent({
     border: none;
     color: #ffffff;
   }
-  .input:focus-visible {
+  .input-field:focus-visible {
     border: none;
     outline: 1px solid #232323;
   }

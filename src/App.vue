@@ -1,41 +1,56 @@
 <template>
   <div class="main">
-    <search-input
-      :films="allFilms"
-      @findFilm="findFilm"
+    <header-film
+      :all-films="allFilms"
+      :sorted-films="sortedFilms"
+      :selected-film="selectedFilm"
+      :sort-by-date="sortByDate"
+      :sort-by-rating="sortByRating"
+      :find-film="findFilm"
+      :show-search="showSearch"
+      :is-show-search="isShowSearch"
     />
-    <sorter
-      :films="films"
-      @sortByDate="sortByDate"
-      @sortByRating="sortByRating"
+    <cards-list
+      :cards="sortedFilms"
+      @onClickCard="onClickCard"
+      @showSearch="showSearch"
     />
-    <cards-list :cards="films" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import CardsList from './containers/CardsList.vue';
-import Sorter from './containers/Sorter.vue';
 import { CardType } from './types';
 import data from './data';
-import SearchInput from '@/containers/SearchInput.vue';
+import HeaderFilm from '@/containers/HeaderFilm.vue';
 
 export default defineComponent({
-  components: { SearchInput, CardsList, Sorter },
+  components: {
+    HeaderFilm, CardsList,
+  },
   data: () => ({
-    films: data,
+    sortedFilms: data,
     allFilms: data,
+    selectedFilm: {},
+    isShowSearch: true,
   }),
   methods: {
     sortByDate(films: Array<CardType>) {
-      this.films = films;
+      this.sortedFilms = films;
     },
     sortByRating(films: Array<CardType>) {
-      this.films = films;
+      this.sortedFilms = films;
     },
     findFilm(films: Array<CardType>) {
-      this.films = films;
+      this.sortedFilms = films;
+    },
+    showSearch(value: boolean) {
+      this.isShowSearch = value;
+    },
+    onClickCard(film: CardType) {
+      this.selectedFilm = film;
+      this.isShowSearch = false;
     },
   },
 });
