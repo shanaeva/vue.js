@@ -1,14 +1,25 @@
 <template>
   <div class="main">
-    <header-film
-      :all-films="allFilms"
-      :sorted-films="sortedFilms"
-      :selected-film="selectedFilm"
-      :sort-by-date="sortByDate"
-      :sort-by-rating="sortByRating"
-      :find-film="findFilm"
-      :show-search="showSearch"
+    <div class="header-film">
+      <film-description
+        v-if="!isShowSearch"
+        :film="selectedFilm"
+        :show-search="showSearch"
+      />
+      <div v-else>
+        <search-input
+          :films="allFilms"
+          :show-search="showSearch"
+          @findFilm="findFilm"
+        />
+      </div>
+    </div>
+    <sort-by-date-and-rating
+      :films="sortedFilms"
+      :genre="selectedFilm?.genre"
       :is-show-search="isShowSearch"
+      @sortByDate="sortByDate"
+      @sortByRating="sortByRating"
     />
     <cards-list
       :cards="sortedFilms"
@@ -23,11 +34,16 @@ import { defineComponent } from 'vue';
 import CardsList from './containers/CardsList.vue';
 import { CardType } from './types';
 import data from './data';
-import HeaderFilm from '@/containers/HeaderFilm.vue';
+import SortByDateAndRating from '@/containers/SortByDateAndRating.vue';
+import FilmDescription from '@/containers/FilmDescription.vue';
+import SearchInput from '@/containers/SearchInput.vue';
 
 export default defineComponent({
   components: {
-    HeaderFilm, CardsList,
+    SortByDateAndRating,
+    FilmDescription,
+    SearchInput,
+    CardsList,
   },
   data: () => ({
     sortedFilms: data,
@@ -56,7 +72,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 
 * {
@@ -71,5 +87,10 @@ body {
   height: 100%;
   background-color: #555555;
   padding: 20px;
+}
+.header-film {
+    background-image: url('../public/background.jpg');
+    color: #ffffff;
+    border-radius: 2px;
 }
 </style>

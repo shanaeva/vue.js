@@ -1,7 +1,7 @@
 <template>
   <div
     class="card"
-    @click="onClick"
+    @click="click"
   >
     <image-item :src="card.src" />
     <div class="header">
@@ -24,7 +24,12 @@ export default defineComponent({
   name: 'Card',
   props: {
     card: { type: Object as PropType<CardType>, required: true },
-    onClick: { type: Function as ()=> void, required: true },
+  },
+  emits: ['click'],
+  methods: {
+    click() {
+      this.$emit('click');
+    },
   },
 });
 </script>

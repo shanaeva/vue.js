@@ -7,9 +7,9 @@
           v-model="text"
         />
       </div>
-      <my-button :on-click="findFilm">
+      <basic-button @click="findFilm">
         SEARCH
-      </my-button>
+      </basic-button>
     </div>
     <filter-by
       label="SEARCH BY"
@@ -23,7 +23,7 @@
 import { defineComponent, PropType } from 'vue';
 import InputField from '../components/InputField.vue';
 import { CardType } from '@/types';
-import MyButton from '../components/MyButton.vue';
+import BasicButton from '../components/BasicButton.vue';
 
 type isActiveType = 'title' | 'genre';
 
@@ -31,7 +31,7 @@ export default defineComponent({
   name: 'SearchInput',
   components: {
     InputField,
-    MyButton,
+    BasicButton,
   },
   props: {
     films: { type: Array as PropType<Array<CardType>>, required: true },

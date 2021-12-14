@@ -10,7 +10,7 @@
         v-for="card in cards"
         :key="card.id"
         :card="card"
-        :on-click="()=> onClickCard(card)"
+        @click="onClickCard(card)"
       />
     </div>
     <div
