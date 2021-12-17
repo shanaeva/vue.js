@@ -14,9 +14,9 @@
         {{ films.length }} movie found
       </div>
       <filter-by
-        label="SORT BY"
-        :button-primary="{ name: 'RELEASE DATE', method: sortByDate }"
-        :button-secondary="{ name: 'RATING', method: sortByRating }"
+        label="sort by"
+        :button-primary="{ name: 'release date', method: () => sortAscending(films, 'year')}"
+        :button-secondary="{ name: 'rating', method: () => sortAscending(films, 'rating') }"
         :is-right="true"
       />
     </div>
@@ -26,27 +26,16 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { CardType } from '@/types';
+import sortBy from '@/mixins/sortBy';
 
 export default defineComponent({
+  mixins: [sortBy],
   props: {
     films: { type: Array as PropType<Array<CardType>>, required: true },
     genre: { type: String, required: true },
     isShowSearch: { type: Boolean, required: true },
   },
-  emits: ['sortByDate', 'sortByRating'],
   data: () => ({ isActiveDate: true, isActiveRating: false }),
-  methods: {
-    sortByDate() {
-      const newCards = [...this.films];
-      newCards.sort((a, b) => b.year - a.year);
-      this.$emit('sortByDate', newCards);
-    },
-    sortByRating() {
-      const newCards = [...this.films];
-      newCards.sort((a, b) => b.rating - a.rating);
-      this.$emit('sortByRating', newCards);
-    },
-  },
 });
 </script>
 

@@ -4,7 +4,7 @@
     :key="info.description"
     class="short-info"
   >
-    <p class="value">
+    <p v-font="'m'" class="value">
       {{ info.value }}
     </p>
     <p class="description">
@@ -38,7 +38,6 @@ export default defineComponent({
   .value {
     margin-right: 6px;
     color: #f65261;
-    font-size: 28px;
   }
   .description {
     color: #555555;

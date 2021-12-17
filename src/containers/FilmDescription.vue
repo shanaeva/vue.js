@@ -1,5 +1,5 @@
 <template>
-  <div class="film-description">
+  <div v-theme="'rgba(0, 0, 0, 0.91)'">
     <div
       class="img-wrapper"
       @click="showSearch(true)"
@@ -16,7 +16,10 @@
       </div>
       <div class="main-info">
         <div class="header">
-          <h1 class="title">
+          <h1
+            v-font="'l'"
+            class="title"
+          >
             {{ film.title }}
           </h1>
           <rating :value="film.rating" />
@@ -38,10 +41,12 @@ import { defineComponent, PropType } from 'vue';
 import Rating from '../components/Rating.vue';
 import { CardType } from '@/types';
 import ShortInfo from '../components/ShortInfo.vue';
+import theme from '@/directives/theme';
 
 export default defineComponent({
   name: 'FilmDescription',
   components: { ShortInfo, Rating },
+  directives: { theme },
   props: {
     film: { type: Object as PropType<CardType>, required: true },
     showSearch: { type: Function as PropType<(v: boolean)=> void>, required: true },
@@ -56,11 +61,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  .film-description{
-    background: rgba(0, 0, 0, 0.91);
-    padding: 90px 58px 90px 58px;
-    backdrop-filter: blur(1px);
-  }
   .wrapper {
     display: flex;
   }
@@ -85,7 +85,6 @@ export default defineComponent({
   .title {
     margin-right: 22px;
     color: #ffffff;
-    font-size: 48px;
     font-weight: normal;
   }
   .other-info{

@@ -1,5 +1,6 @@
 <template>
   <button
+    v-font:uppercase
     class="basic-button"
     :disabled="disabled"
     @click="click"
@@ -35,7 +36,6 @@ export default defineComponent({
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    text-transform: uppercase;
   }
   .basic-button:hover {
     background: #bb3440;

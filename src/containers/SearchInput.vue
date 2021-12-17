@@ -1,6 +1,8 @@
 <template>
-  <div class="blur">
-    <h1>FIND YOUR MOVIE</h1>
+  <div v-theme="'rgba(0, 0, 0, 0.8)'">
+    <h1 v-font:uppercase>
+      Find your movie
+    </h1>
     <div class="search-input">
       <div class="input-field-wrapper">
         <input-field
@@ -12,9 +14,9 @@
       </basic-button>
     </div>
     <filter-by
-      label="SEARCH BY"
-      :button-primary="{ name: 'TITLE', method: sortByTitle }"
-      :button-secondary="{ name: 'GENRE', method: sortByGenre }"
+      label="search by"
+      :button-primary="{ name: 'title', method: sortByTitle }"
+      :button-secondary="{ name: 'genre', method: sortByGenre }"
     />
   </div>
 </template>
@@ -24,6 +26,7 @@ import { defineComponent, PropType } from 'vue';
 import InputField from '../components/InputField.vue';
 import { CardType } from '@/types';
 import BasicButton from '../components/BasicButton.vue';
+import theme from '@/directives/theme';
 
 type isActiveType = 'title' | 'genre';
 
@@ -33,6 +36,7 @@ export default defineComponent({
     InputField,
     BasicButton,
   },
+  directives: { theme },
   props: {
     films: { type: Array as PropType<Array<CardType>>, required: true },
   },
@@ -55,11 +59,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  .blur {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 90px 58px 90px 58px;
-    backdrop-filter: blur(1px);
-  }
   .search-input {
     display: flex;
     justify-content: flex-end;

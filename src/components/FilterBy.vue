@@ -1,5 +1,6 @@
 <template>
   <div
+    v-font:uppercase
     class="filter-by"
     :class="{ end: isRight }"
   >
@@ -7,6 +8,7 @@
       {{ label }}
     </p>
     <button
+      v-font:uppercase
       class="button"
       :class="{ active: isActiveDate}"
       @click="primaryClick"
@@ -14,6 +16,7 @@
       {{ buttonPrimary.name }}
     </button>
     <button
+      v-font:uppercase
       class="button"
       :class="{ active: isActiveRating }"
       @click="secondaryClick"
