@@ -1,27 +1,96 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="main">
+    <div class="header-film">
+      <film-description
+        v-if="!isShowSearch"
+        :film="selectedFilm"
+        :show-search="showSearch"
+      />
+      <div v-else>
+        <search-input
+          :films="allFilms"
+          :show-search="showSearch"
+          @findFilm="findFilm"
+        />
+      </div>
+    </div>
+    <sort-by-date-and-rating
+      :films="sortedFilms"
+      :genre="selectedFilm?.genre"
+      :is-show-search="isShowSearch"
+      @sortByDate="sortByDate"
+      @sortByRating="sortByRating"
+    />
+    <cards-list
+      :cards="sortedFilms"
+      @onClickCard="onClickCard"
+      @showSearch="showSearch"
+    />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import CardsList from './containers/CardsList.vue';
+import { CardType } from './types';
+import data from './data';
+import SortByDateAndRating from '@/containers/SortByDateAndRating.vue';
+import FilmDescription from '@/containers/FilmDescription.vue';
+import SearchInput from '@/containers/SearchInput.vue';
 
 export default defineComponent({
-  name: 'App',
   components: {
-    HelloWorld,
+    SortByDateAndRating,
+    FilmDescription,
+    SearchInput,
+    CardsList,
+  },
+  data: () => ({
+    sortedFilms: data,
+    allFilms: data,
+    selectedFilm: {},
+    isShowSearch: true,
+  }),
+  methods: {
+    sortByDate(films: Array<CardType>) {
+      this.sortedFilms = films;
+    },
+    sortByRating(films: Array<CardType>) {
+      this.sortedFilms = films;
+    },
+    findFilm(films: Array<CardType>) {
+      this.sortedFilms = films;
+    },
+    showSearch(value: boolean) {
+      this.isShowSearch = value;
+    },
+    onClickCard(film: CardType) {
+      this.selectedFilm = film;
+      this.isShowSearch = false;
+    },
   },
 });
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
+}
+body {
+  background-color: #555555;
+}
+.main {
+  height: 100%;
+  background-color: #555555;
+  padding: 20px;
+}
+.header-film {
+    background-image: url('../public/background.jpg');
+    color: #ffffff;
+    border-radius: 2px;
 }
 </style>
