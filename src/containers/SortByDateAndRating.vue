@@ -13,11 +13,12 @@
       >
         {{ films.length }} movie found
       </div>
-      <filter-by
+      <base-toggle
         label="sort by"
-        :button-primary="{ name: 'release date', method: () => sortAscending(films, 'year')}"
-        :button-secondary="{ name: 'rating', method: () => sortAscending(films, 'rating') }"
-        :is-right="true"
+        button-primary="release date"
+        button-secondary="rating"
+        @firstToggleClick="sortAscending(films, 'year')"
+        @secondToggleClick="sortAscending(films, 'rating')"
       />
     </div>
   </div>
@@ -27,8 +28,10 @@
 import { defineComponent, PropType } from 'vue';
 import { CardType } from '@/types';
 import sortBy from '@/mixins/sortBy';
+import BaseToggle from '@/components/BaseToggle.vue';
 
 export default defineComponent({
+  components: { BaseToggle },
   mixins: [sortBy],
   props: {
     films: { type: Array as PropType<Array<CardType>>, required: true },

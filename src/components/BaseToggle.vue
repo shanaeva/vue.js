@@ -10,18 +10,18 @@
     <button
       v-font:uppercase
       class="button"
-      :class="{ active: isActiveDate}"
+      :class="{ active: isFirstActive}"
       @click="primaryClick"
     >
-      {{ buttonPrimary.name }}
+      {{ buttonPrimary }}
     </button>
     <button
       v-font:uppercase
       class="button"
-      :class="{ active: isActiveRating }"
+      :class="{ active: !isFirstActive }"
       @click="secondaryClick"
     >
-      {{ buttonSecondary.name }}
+      {{ buttonSecondary }}
     </button>
   </div>
 </template>
@@ -29,32 +29,24 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 
-type ButtonType = {
-  name: string,
-  method: ()=> void,
-};
-
 export default defineComponent({
-  name: 'FilterBy',
+  name: 'BaseToggle',
+  emits: ['firstToggleClick', 'secondToggleClick'],
   props: {
     label: { type: String, required: true },
-    buttonPrimary: { type: Object as PropType<ButtonType>, required: true },
-    buttonSecondary: { type: Object as PropType<ButtonType>, required: true },
-    isRight: {
-      type: Boolean, require: false,
-    },
+    buttonPrimary: { type: String, required: true },
+    buttonSecondary: { type: String, required: true },
+
   },
-  data: () => ({ isActiveDate: true, isActiveRating: false }),
+  data: () => ({ isFirstActive: true }),
   methods: {
     primaryClick() {
-      this.buttonPrimary.method();
-      this.isActiveDate = true;
-      this.isActiveRating = false;
+      this.$emit('firstToggleClick');
+      this.isFirstActive = true;
     },
     secondaryClick() {
-      this.buttonSecondary.method();
-      this.isActiveDate = false;
-      this.isActiveRating = true;
+      this.$emit('secondToggleClick');
+      this.isFirstActive = false;
     },
   },
 });
