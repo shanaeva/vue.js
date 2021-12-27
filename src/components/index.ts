@@ -1,4 +1,4 @@
-import FilterBy from './FilterBy.vue';
+import BaseToggle from './BaseToggle.vue';
 import ImageItem from './ImageItem.vue';
 
-export default [FilterBy, ImageItem];
+export default [BaseToggle, ImageItem];

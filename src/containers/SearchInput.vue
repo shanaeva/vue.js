@@ -13,10 +13,12 @@
         SEARCH
       </basic-button>
     </div>
-    <filter-by
+    <base-toggle
       label="search by"
-      :button-primary="{ name: 'title', method: sortByTitle }"
-      :button-secondary="{ name: 'genre', method: sortByGenre }"
+      button-primary="title"
+      button-secondary="genre"
+      @firstToggleClick="sortByTitle"
+      @secondToggleClick="sortByGenre"
     />
   </div>
 </template>
@@ -41,7 +43,7 @@ export default defineComponent({
     films: { type: Array as PropType<Array<CardType>>, required: true },
   },
   emits: ['findFilm'],
-  data: () => ({ isActive: 'title' as isActiveType, text: '', allFilms: [] }),
+  data: () => ({ isActive: 'title' as isActiveType, text: '' }),
   methods: {
     sortByTitle() {
       this.isActive = 'title';
@@ -50,9 +52,7 @@ export default defineComponent({
       this.isActive = 'genre';
     },
     findFilm() {
-      const filteredFilms = this.films.filter((card) => card[this.isActive].toLowerCase()
-        .startsWith(this.text.toLowerCase()));
-      this.$emit('findFilm', filteredFilms);
+      this.$emit('findFilm', this.text, this.isActive);
     },
   },
 });

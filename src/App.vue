@@ -9,7 +9,6 @@
       <div v-else>
         <search-input
           :films="allFilms"
-          :show-search="showSearch"
           @findFilm="findFilm"
         />
       </div>
@@ -18,13 +17,10 @@
       :films="sortedFilms"
       :genre="selectedFilm?.genre"
       :is-show-search="isShowSearch"
-      @sortByDate="sortByDate"
-      @sortByRating="sortByRating"
     />
     <cards-list
       :cards="sortedFilms"
       @onClickCard="onClickCard"
-      @showSearch="showSearch"
     />
   </div>
 </template>
@@ -52,14 +48,9 @@ export default defineComponent({
     isShowSearch: true,
   }),
   methods: {
-    sortByDate(films: Array<CardType>) {
-      this.sortedFilms = films;
-    },
-    sortByRating(films: Array<CardType>) {
-      this.sortedFilms = films;
-    },
-    findFilm(films: Array<CardType>) {
-      this.sortedFilms = films;
+    findFilm(text: string, searchBy: string) {
+      this.sortedFilms = this.allFilms.filter((card) => card[searchBy].toLowerCase()
+        .startsWith(text.toLowerCase()));
     },
     showSearch(value: boolean) {
       this.isShowSearch = value;

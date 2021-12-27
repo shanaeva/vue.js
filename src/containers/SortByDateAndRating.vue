@@ -6,6 +6,7 @@
     <div
       v-else
       class="filter-by-wrapper"
+      :class="{ end: films.length === 0 }"
     >
       <div
         v-if="films.length > 0"
@@ -13,11 +14,12 @@
       >
         {{ films.length }} movie found
       </div>
-      <filter-by
+      <base-toggle
         label="sort by"
-        :button-primary="{ name: 'release date', method: () => sortAscending(films, 'year')}"
-        :button-secondary="{ name: 'rating', method: () => sortAscending(films, 'rating') }"
-        :is-right="true"
+        button-primary="release date"
+        button-secondary="rating"
+        @firstToggleClick="sortAscending(films, 'year')"
+        @secondToggleClick="sortAscending(films, 'rating')"
       />
     </div>
   </div>
@@ -52,5 +54,8 @@ export default defineComponent({
   }
   .found-films{
     font-weight: bold;
+  }
+  .end {
+    justify-content: flex-end;
   }
 </style>
