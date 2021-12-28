@@ -3,16 +3,19 @@
     class="card"
     @click="click"
   >
-    <image-item :src="card.src" />
+    <image-item :src="card.poster_path" />
     <div class="header">
-      <h1 class="title">
+      <h1
+        v-font="'m'"
+        class="title"
+      >
         {{ card.title }}
       </h1>
       <p class="year">
-        {{ card.year }}
+        {{ getYear() }}
       </p>
     </div>
-    <p>{{ card.genre }}</p>
+    <p>{{ getGenre() }}</p>
   </div>
 </template>
 
@@ -30,6 +33,12 @@ export default defineComponent({
     click() {
       this.$emit('click');
     },
+    getGenre() {
+      return this.card.genres.join(' & ');
+    },
+    getYear() {
+      return this.card.release_date.slice(0, 4);
+    },
   },
 });
 </script>
@@ -44,7 +53,7 @@ export default defineComponent({
   .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 16px;
   }
   .title {

@@ -18,8 +18,8 @@
         label="sort by"
         button-primary="release date"
         button-secondary="rating"
-        @firstToggleClick="sortAscending(films, 'year')"
-        @secondToggleClick="sortAscending(films, 'rating')"
+        @firstToggleClick="sortByDate()"
+        @secondToggleClick="sortAscending(films, 'vote_count')"
       />
     </div>
   </div>
@@ -37,6 +37,7 @@ export default defineComponent({
     films: { type: Array as PropType<Array<CardType>>, required: true },
     isRight: { type: Boolean, require: false },
   },
+  emits: ['sort'],
   setup() {
     const { state, getters } = useStore();
     const film = computed(() => getters.chooseFilm);
@@ -45,6 +46,13 @@ export default defineComponent({
     return { selectedFilmId, film };
   },
   data: () => ({ isActiveDate: true, isActiveRating: false }),
+  methods: {
+    sortByDate() {
+      const sortedFilms = [...this.films];
+      sortedFilms.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+      return this.$emit('sort', sortedFilms);
+    },
+  },
 });
 </script>
 

@@ -1,10 +1,14 @@
 export type CardType = {
   id: number,
-  src: string,
   title: string,
-  year: number,
-  genre: string,
-  rating: number,
-  duration: number,
-  description: string;
+  tagline:string,
+  voteAverage: number,
+  voteCount: number,
+  releaseDate: string,
+  posterPath: string,
+  overview: string,
+  budget: number,
+  revenue: number,
+  genres: Array<string>,
+  runtime: null,
 };

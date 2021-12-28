@@ -45,7 +45,7 @@ export default defineComponent({
       this.isActive = 'title';
     },
     sortByGenre() {
-      this.isActive = 'genre';
+      this.isActive = 'genres';
     },
     findFilm() {
       this.$emit('findFilm', this.text, this.isActive);

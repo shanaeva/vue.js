@@ -10,10 +10,10 @@ components.forEach((component: any) => app.component(component.name, component))
 app.directive('font', {
   mounted(el, binding) {
     if (binding.value === 'm') {
-      el.style.fontSize = '28px';
+      el.style.fontSize = '24px';
     }
     if (binding.value === 'l') {
-      el.style.fontSize = '48px';
+      el.style.fontSize = '40px';
     }
     if (binding.arg === 'uppercase') {
       el.style.textTransform = 'uppercase';
