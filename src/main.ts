@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import components from './components/index';
+import store from './store';
 
 const app = createApp(App);
 
@@ -18,6 +19,4 @@ app.directive('font', {
       el.style.textTransform = 'uppercase';
     }
   },
-});
-
-app.mount('#app');
+}).use(store).mount('#app');

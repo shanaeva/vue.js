@@ -2,7 +2,7 @@
   <div v-theme="'rgba(0, 0, 0, 0.91)'">
     <div
       class="img-wrapper"
-      @click="showSearch(true)"
+      @click="clearSelectedFilm"
     >
       <img
         src="../../public/loupe.svg"
@@ -37,9 +37,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { useStore } from 'vuex';
 import Rating from '../components/Rating.vue';
-import { CardType } from '@/types';
 import ShortInfo from '../components/ShortInfo.vue';
 import theme from '@/directives/theme';
 
@@ -47,11 +47,17 @@ export default defineComponent({
   name: 'FilmDescription',
   components: { ShortInfo, Rating },
   directives: { theme },
-  props: {
-    film: { type: Object as PropType<CardType>, required: true },
-    showSearch: { type: Function as PropType<(v: boolean)=> void>, required: true },
-  },
   emits: ['showSearch'],
+  setup() {
+    const { getters, dispatch } = useStore();
+    const film = computed(() => getters.chooseFilm);
+
+    const clearSelectedFilm = (id: number) => {
+      dispatch('clearSelectedFilm', id);
+    };
+
+    return { film, clearSelectedFilm };
+  },
   methods: {
     getShortInfo() {
       return [{ value: this.film.year, description: 'year' }, { value: this.film.duration, description: 'min' }];

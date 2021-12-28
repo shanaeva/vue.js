@@ -24,9 +24,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent } from 'vue';
 import InputField from '../components/InputField.vue';
-import { CardType } from '@/types';
 import BasicButton from '../components/BasicButton.vue';
 import theme from '@/directives/theme';
 
@@ -39,9 +38,6 @@ export default defineComponent({
     BasicButton,
   },
   directives: { theme },
-  props: {
-    films: { type: Array as PropType<Array<CardType>>, required: true },
-  },
   emits: ['findFilm'],
   data: () => ({ isActive: 'title' as isActiveType, text: '' }),
   methods: {

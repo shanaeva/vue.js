@@ -2,34 +2,27 @@
   <div class="main">
     <div class="header-film">
       <film-description
-        v-if="!isShowSearch"
-        :film="selectedFilm"
-        :show-search="showSearch"
+        v-if="selectedFilmId"
       />
       <div v-else>
         <search-input
-          :films="allFilms"
           @findFilm="findFilm"
         />
       </div>
     </div>
     <sort-by-date-and-rating
       :films="sortedFilms"
-      :genre="selectedFilm?.genre"
-      :is-show-search="isShowSearch"
     />
     <cards-list
       :cards="sortedFilms"
-      @onClickCard="onClickCard"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { useStore } from 'vuex';
 import CardsList from './containers/CardsList.vue';
-import { CardType } from './types';
-import data from './data';
 import SortByDateAndRating from '@/containers/SortByDateAndRating.vue';
 import FilmDescription from '@/containers/FilmDescription.vue';
 import SearchInput from '@/containers/SearchInput.vue';
@@ -41,23 +34,23 @@ export default defineComponent({
     SearchInput,
     CardsList,
   },
+  setup() {
+    const { state } = useStore();
+    const films = computed(() => state.films);
+    const selectedFilmId = computed(() => state.selectedFilmId);
+
+    return { films, selectedFilmId };
+  },
   data: () => ({
-    sortedFilms: data,
-    allFilms: data,
-    selectedFilm: {},
-    isShowSearch: true,
+    sortedFilms: [],
   }),
+  created() {
+    this.sortedFilms = this.films;
+  },
   methods: {
     findFilm(text: string, searchBy: string) {
-      this.sortedFilms = this.allFilms.filter((card) => card[searchBy].toLowerCase()
+      this.sortedFilms = this.films.filter((card) => card[searchBy].toLowerCase()
         .startsWith(text.toLowerCase()));
-    },
-    showSearch(value: boolean) {
-      this.isShowSearch = value;
-    },
-    onClickCard(film: CardType) {
-      this.selectedFilm = film;
-      this.isShowSearch = false;
     },
   },
 });
