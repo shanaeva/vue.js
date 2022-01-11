@@ -6,6 +6,7 @@
     <div
       v-else
       class="filter-by-wrapper"
+      :class="{ end: films.length === 0 }"
     >
       <div
         v-if="films.length > 0"
@@ -13,11 +14,12 @@
       >
         {{ films.length }} movie found
       </div>
-      <filter-by
-        label="SORT BY"
-        :button-primary="{ name: 'RELEASE DATE', method: sortByDate }"
-        :button-secondary="{ name: 'RATING', method: sortByRating }"
-        :is-right="true"
+      <base-toggle
+        label="sort by"
+        button-primary="release date"
+        button-secondary="rating"
+        @firstToggleClick="sortAscending(films, 'year')"
+        @secondToggleClick="sortAscending(films, 'rating')"
       />
     </div>
   </div>
@@ -26,27 +28,16 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { CardType } from '@/types';
+import sortBy from '@/mixins/sortBy';
 
 export default defineComponent({
+  mixins: [sortBy],
   props: {
     films: { type: Array as PropType<Array<CardType>>, required: true },
     genre: { type: String, required: true },
     isShowSearch: { type: Boolean, required: true },
   },
-  emits: ['sortByDate', 'sortByRating'],
   data: () => ({ isActiveDate: true, isActiveRating: false }),
-  methods: {
-    sortByDate() {
-      const newCards = [...this.films];
-      newCards.sort((a, b) => b.year - a.year);
-      this.$emit('sortByDate', newCards);
-    },
-    sortByRating() {
-      const newCards = [...this.films];
-      newCards.sort((a, b) => b.rating - a.rating);
-      this.$emit('sortByRating', newCards);
-    },
-  },
 });
 </script>
 
@@ -63,5 +54,8 @@ export default defineComponent({
   }
   .found-films{
     font-weight: bold;
+  }
+  .end {
+    justify-content: flex-end;
   }
 </style>

@@ -15,6 +15,7 @@
     </div>
     <div
       v-else
+      v-font="'l'"
       class="empty"
     >
       No films found
@@ -56,6 +57,5 @@ export default defineComponent({
     justify-content: center;
     height: 600px;
     color: #ffffff;
-    font-size: 48px;
   }
 </style>
