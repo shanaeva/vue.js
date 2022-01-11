@@ -21,8 +21,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
-import { useStore } from 'vuex';
+import { defineComponent } from 'vue';
+import { mapState } from 'vuex';
 import CardsList from './containers/CardsList.vue';
 import SortByDateAndRating from '@/containers/SortByDateAndRating.vue';
 import FilmDescription from '@/containers/FilmDescription.vue';
@@ -36,16 +36,10 @@ export default defineComponent({
     SearchInput,
     CardsList,
   },
-  setup() {
-    const { state } = useStore();
-    const films = computed(() => state.films);
-    const selectedFilmId = computed(() => state.selectedFilmId);
-
-    return { films, selectedFilmId };
-  },
   data: () => ({
     sortedFilms: [],
   }),
+  computed: { ...mapState(['films', 'selectedFilmId']) },
   created() {
     this.sortedFilms = this.films;
   },

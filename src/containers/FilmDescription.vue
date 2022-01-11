@@ -12,7 +12,7 @@
     </div>
     <div class="wrapper">
       <div>
-        <image-item :src="film.poster_path" />
+        <image-item :src="chooseFilm.poster_path" />
       </div>
       <div class="main-info">
         <div class="header">
@@ -20,27 +20,27 @@
             v-font="'l'"
             class="title"
           >
-            {{ film.title }}
+            {{ chooseFilm.title }}
           </h1>
           <div class="rating-wrapper">
-            <rating :value="film.vote_count" />
+            <rating :value="chooseFilm.vote_count" />
           </div>
         </div>
         <p class="other-info">
-          {{ film.tagline }}
+          {{ chooseFilm.tagline }}
         </p>
         <div class="short-info-wrapper">
           <short-info :info-list="getShortInfo()" />
         </div>
-        <p>{{ film.overview }}</p>
+        <p>{{ chooseFilm.overview }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
-import { useStore } from 'vuex';
+import { defineComponent } from 'vue';
+import { mapActions, mapGetters } from 'vuex';
 import Rating from '../components/Rating.vue';
 import ShortInfo from '../components/ShortInfo.vue';
 import theme from '@/directives/theme';
@@ -49,21 +49,14 @@ export default defineComponent({
   name: 'FilmDescription',
   components: { ShortInfo, Rating },
   directives: { theme },
-  emits: ['showSearch'],
-  setup() {
-    const { getters, dispatch } = useStore();
-    const film = computed(() => getters.chooseFilm);
-
-    const clearSelectedFilm = (id: number) => {
-      dispatch('clearSelectedFilm', id);
-    };
-
-    return { film, clearSelectedFilm };
-  },
+  computed: { ...mapGetters(['chooseFilm']) },
   methods: {
     getShortInfo() {
-      return [{ value: this.film.release_date.slice(0, 4), description: 'year' }, { value: this.film.id, description: 'min' }];
+      return [
+        { value: this.chooseFilm.release_date.slice(0, 4), description: 'year' },
+        { value: this.chooseFilm.id, description: 'min' }];
     },
+    ...mapActions(['clearSelectedFilm']),
   },
 });
 </script>
