@@ -2,7 +2,7 @@
   <div v-theme="'rgba(0, 0, 0, 0.91)'">
     <div
       class="img-wrapper"
-      @click="showSearch(true)"
+      @click="clearSelectedFilm"
     >
       <img
         src="../../public/loupe.svg"
@@ -12,7 +12,7 @@
     </div>
     <div class="wrapper">
       <div>
-        <image-item :src="film.src" />
+        <image-item :src="film.poster_path" />
       </div>
       <div class="main-info">
         <div class="header">
@@ -22,24 +22,26 @@
           >
             {{ film.title }}
           </h1>
-          <rating :value="film.rating" />
+          <div class="rating-wrapper">
+            <rating :value="film.vote_count" />
+          </div>
         </div>
         <p class="other-info">
-          {{ film.genre }}
+          {{ film.tagline }}
         </p>
         <div class="short-info-wrapper">
           <short-info :info-list="getShortInfo()" />
         </div>
-        <p>{{ film.description }}</p>
+        <p>{{ film.overview }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { useStore } from 'vuex';
 import Rating from '../components/Rating.vue';
-import { CardType } from '@/types';
 import ShortInfo from '../components/ShortInfo.vue';
 import theme from '@/directives/theme';
 
@@ -47,14 +49,20 @@ export default defineComponent({
   name: 'FilmDescription',
   components: { ShortInfo, Rating },
   directives: { theme },
-  props: {
-    film: { type: Object as PropType<CardType>, required: true },
-    showSearch: { type: Function as PropType<(v: boolean)=> void>, required: true },
-  },
   emits: ['showSearch'],
+  setup() {
+    const { getters, dispatch } = useStore();
+    const film = computed(() => getters.chooseFilm);
+
+    const clearSelectedFilm = (id: number) => {
+      dispatch('clearSelectedFilm', id);
+    };
+
+    return { film, clearSelectedFilm };
+  },
   methods: {
     getShortInfo() {
-      return [{ value: this.film.year, description: 'year' }, { value: this.film.duration, description: 'min' }];
+      return [{ value: this.film.release_date.slice(0, 4), description: 'year' }, { value: this.film.id, description: 'min' }];
     },
   },
 });
@@ -87,8 +95,11 @@ export default defineComponent({
     color: #ffffff;
     font-weight: normal;
   }
+  .rating-wrapper {
+    flex-shrink: 0;
+  }
   .other-info{
-    color: #ffffff;
+    color: #555555;
   }
   .short-info-wrapper {
     display: flex;

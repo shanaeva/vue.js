@@ -10,7 +10,7 @@
         v-for="card in cards"
         :key="card.id"
         :card="card"
-        @click="onClickCard(card)"
+        @click="selectFilm(card.id)"
       />
     </div>
     <div
@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import { useStore } from 'vuex';
 import Card from './Card.vue';
 import { CardType } from '@/types';
 
@@ -34,6 +35,15 @@ export default defineComponent({
     cards: { type: Array as PropType<Array<CardType>>, required: true },
   },
   emits: ['onClickCard'],
+  setup() {
+    const { dispatch } = useStore();
+
+    const selectFilm = (id: number) => {
+      dispatch('selectFilm', id);
+    };
+
+    return { selectFilm };
+  },
   methods: {
     onClickCard(card: CardType) {
       this.$emit('onClickCard', card);
