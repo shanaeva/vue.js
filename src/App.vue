@@ -5,18 +5,11 @@
         v-if="selectedFilmId"
       />
       <div v-else>
-        <search-input
-          @findFilm="findFilm"
-        />
+        <search-input />
       </div>
     </div>
-    <sort-by-date-and-rating
-      :films="sortedFilms"
-      @sort="sort"
-    />
-    <cards-list
-      :cards="sortedFilms"
-    />
+    <sort-by-date-and-rating />
+    <cards-list />
   </div>
 </template>
 
@@ -27,7 +20,6 @@ import CardsList from './containers/CardsList.vue';
 import SortByDateAndRating from '@/containers/SortByDateAndRating.vue';
 import FilmDescription from '@/containers/FilmDescription.vue';
 import SearchInput from '@/containers/SearchInput.vue';
-import { CardType } from '@/types';
 
 export default defineComponent({
   components: {
@@ -36,34 +28,7 @@ export default defineComponent({
     SearchInput,
     CardsList,
   },
-  data: () => ({
-    sortedFilms: [],
-  }),
-  computed: { ...mapState(['films', 'selectedFilmId']) },
-  created() {
-    this.sortedFilms = this.films;
-  },
-  methods: {
-    findFilm(text: string, searchBy: 'title' | 'genres') {
-      if (searchBy === 'title') {
-        this.sortedFilms = this.films.filter((card) => card.title.toLowerCase()
-          .startsWith(text.toLowerCase()));
-      } else {
-        this.sortedFilms = this.films.reduce((acc, card) => {
-          const selectGenre = card.genres.find(
-            (genre) => genre.toLowerCase() === text.toLowerCase(),
-          );
-          if (selectGenre) {
-            acc.push(card);
-          }
-          return acc;
-        }, []);
-      }
-    },
-    sort(films: Array<CardType>) {
-      this.sortedFilms = films;
-    },
-  },
+  computed: { ...mapState(['selectedFilmId']) },
 });
 </script>
 

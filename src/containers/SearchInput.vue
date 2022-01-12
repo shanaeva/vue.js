@@ -9,7 +9,7 @@
           v-model="text"
         />
       </div>
-      <basic-button @click="findFilm">
+      <basic-button @click="findFilm({text, searchBy: activeFlag})">
         SEARCH
       </basic-button>
     </div>
@@ -25,11 +25,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { mapActions } from 'vuex';
 import InputField from '../components/InputField.vue';
 import BasicButton from '../components/BasicButton.vue';
 import theme from '@/directives/theme';
 
-type isActiveType = 'title' | 'genre';
+type activeFlag = 'title' | 'genres';
 
 export default defineComponent({
   name: 'SearchInput',
@@ -39,17 +40,15 @@ export default defineComponent({
   },
   directives: { theme },
   emits: ['findFilm'],
-  data: () => ({ isActive: 'title' as isActiveType, text: '' }),
+  data: () => ({ activeFlag: 'title' as activeFlag, text: '' }),
   methods: {
     sortByTitle() {
-      this.isActive = 'title';
+      this.activeFlag = 'title';
     },
     sortByGenre() {
-      this.isActive = 'genres';
+      this.activeFlag = 'genres';
     },
-    findFilm() {
-      this.$emit('findFilm', this.text, this.isActive);
-    },
+    ...mapActions(['findFilm']),
   },
 });
 </script>
