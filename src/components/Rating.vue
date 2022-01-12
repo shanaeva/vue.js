@@ -9,7 +9,7 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'Rating',
-  props: { value: { type: String, require: true, default: '' } },
+  props: { value: { type: Number, require: true, default: 0 } },
 });
 
 </script>

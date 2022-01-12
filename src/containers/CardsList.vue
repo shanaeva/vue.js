@@ -3,11 +3,11 @@
     class="wrapper"
   >
     <div
-      v-if="cards.length > 0"
+      v-if="sortedFilms.length > 0"
       class="card-list"
     >
       <card
-        v-for="card in cards"
+        v-for="card in sortedFilms"
         :key="card.id"
         :card="card"
         @click="selectFilm(card.id)"
@@ -24,30 +24,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { useStore } from 'vuex';
+import { defineComponent } from 'vue';
+import { mapActions, mapState } from 'vuex';
 import Card from './Card.vue';
-import { CardType } from '@/types';
 
 export default defineComponent({
   components: { Card },
-  props: {
-    cards: { type: Array as PropType<Array<CardType>>, required: true },
-  },
-  emits: ['onClickCard'],
-  setup() {
-    const { dispatch } = useStore();
-
-    const selectFilm = (id: number) => {
-      dispatch('selectFilm', id);
-    };
-
-    return { selectFilm };
-  },
+  computed: { ...mapState(['sortedFilms']) },
   methods: {
-    onClickCard(card: CardType) {
-      this.$emit('onClickCard', card);
-    },
+    ...mapActions(['selectFilm']),
   },
 });
 </script>
