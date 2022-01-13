@@ -2,10 +2,13 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import components from './components/index';
 import store from './store';
+import ApiService from '@/api';
 
 const app = createApp(App);
 
 components.forEach((component: any) => app.component(component.name, component));
+
+ApiService.init();
 
 app.directive('font', {
   mounted(el, binding) {

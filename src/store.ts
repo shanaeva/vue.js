@@ -1,11 +1,11 @@
 import { createStore } from 'vuex';
-import films from './data';
 import { CardType } from '@/types';
+import ApiService from '@/api';
 
 export default createStore({
   state: {
-    films,
-    sortedFilms: films,
+    films: [],
+    sortedFilms: [],
     selectedFilmId: null,
     sortBy: '',
   },
@@ -41,6 +41,10 @@ export default createStore({
     SORT_BY_RATING(state) {
       state.sortedFilms.sort((a, b) => b.vote_count - a.vote_count);
     },
+    GET_FILMS(state, films) {
+      state.films = films;
+      state.sortedFilms = films;
+    },
   },
   actions: {
     selectFilm({ commit }, id) {
@@ -57,6 +61,9 @@ export default createStore({
     },
     sortByRating({ commit }) {
       commit('SORT_BY_RATING');
+    },
+    getFilms({ commit }) {
+      ApiService.getMovies().then((res) => commit('GET_FILMS', res.data));
     },
   },
 });
