@@ -1,7 +1,7 @@
 <template>
   <button
     v-font:uppercase
-    class="basic-button"
+    class="basic-button aqa-basic-button"
     :disabled="disabled"
     @click="click"
   >

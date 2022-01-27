@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rating render correctly 1`] = `
+<h2
+  class="rating"
+>
+  0
+</h2>
+`;
