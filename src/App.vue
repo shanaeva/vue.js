@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import CardsList from './containers/CardsList.vue';
 import SortByDateAndRating from '@/containers/SortByDateAndRating.vue';
 import FilmDescription from '@/containers/FilmDescription.vue';
@@ -29,6 +29,12 @@ export default defineComponent({
     CardsList,
   },
   computed: { ...mapState(['selectedFilmId']) },
+  mounted() {
+    this.getFilms();
+  },
+  methods: {
+    ...mapActions(['getFilms']),
+  },
 });
 </script>
 
