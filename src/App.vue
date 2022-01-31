@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { mapState, useStore } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import CardsList from './containers/CardsList.vue';
 import SortByDateAndRating from '@/containers/SortByDateAndRating.vue';
 import FilmDescription from '@/containers/FilmDescription.vue';
@@ -30,8 +30,10 @@ export default defineComponent({
   },
   computed: { ...mapState(['selectedFilmId']) },
   mounted() {
-    const { dispatch } = useStore();
-    dispatch('getFilms');
+    this.getFilms();
+  },
+  methods: {
+    ...mapActions(['getFilms']),
   },
 });
 </script>
