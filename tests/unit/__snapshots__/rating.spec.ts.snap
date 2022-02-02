@@ -4,6 +4,6 @@ exports[`Rating render correctly 1`] = `
 <h2
   class="rating"
 >
-  0
+  7
 </h2>
 `;

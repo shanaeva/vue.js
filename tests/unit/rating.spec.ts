@@ -7,7 +7,7 @@ describe('Rating', () => {
     expect(wrapper.props().value).toBe(7);
   });
   it('render correctly', () => {
-    const wrapper = shallowMount(Rating);
+    const wrapper = shallowMount(Rating, { props: { value: 7 } });
     expect(wrapper.vm.$el).toMatchSnapshot();
   });
 });
