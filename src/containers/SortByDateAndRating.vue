@@ -31,6 +31,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 import sortBy from '@/mixins/sortBy';
 
 export default defineComponent({
+  name: 'SortByDateAndRating',
   mixins: [sortBy],
   computed: { ...mapState(['films', 'selectedFilmId', 'sortedFilms']), ...mapGetters(['chooseFilm']) },
   methods: {

@@ -10,15 +10,8 @@
         v-for="card in sortedFilms"
         :key="card.id"
         :card="card"
-        @click="selectFilm(card.id)"
+        @click="onClick(card.id)"
       />
-    </div>
-    <div
-      v-else
-      v-font="'l'"
-      class="empty"
-    >
-      No films found
     </div>
   </div>
 </template>
@@ -33,6 +26,10 @@ export default defineComponent({
   computed: { ...mapState(['sortedFilms']) },
   methods: {
     ...mapActions(['selectFilm']),
+    onClick(id: string) {
+      this.selectFilm(id);
+      this.$router.push(`/details/${id}`);
+    },
   },
 });
 </script>
@@ -45,12 +42,5 @@ export default defineComponent({
   .card-list {
     display: flex;
     flex-wrap: wrap;
-  }
-  .empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 600px;
-    color: #ffffff;
   }
 </style>

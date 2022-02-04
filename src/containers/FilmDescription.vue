@@ -2,7 +2,7 @@
   <div v-theme="'rgba(0, 0, 0, 0.91)'">
     <div
       class="img-wrapper"
-      @click="clearSelectedFilm"
+      @click="$router.push('/')"
     >
       <img
         src="../../public/loupe.svg"
@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import Rating from '../components/Rating.vue';
 import ShortInfo from '../components/ShortInfo.vue';
 import theme from '@/directives/theme';
@@ -56,7 +56,6 @@ export default defineComponent({
         { value: this.chooseFilm.release_date.slice(0, 4), description: 'year' },
         { value: this.chooseFilm.id, description: 'min' }];
     },
-    ...mapActions(['clearSelectedFilm']),
   },
 });
 </script>
