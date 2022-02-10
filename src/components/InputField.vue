@@ -1,7 +1,7 @@
 <template>
   <input
     type="text"
-    class="input-field"
+    class="input-field aqa-input-field"
     :value="modelValue"
     :disabled="isDisable"
     @input="updateInput"

@@ -8,7 +8,7 @@
     </p>
     <button
       v-font:uppercase
-      class="button"
+      class="button aqa-button-first"
       :class="{ active: isFirstActive}"
       @click="primaryClick"
     >
@@ -16,7 +16,7 @@
     </button>
     <button
       v-font:uppercase
-      class="button"
+      class="button aqa-button-second"
       :class="{ active: !isFirstActive }"
       @click="secondaryClick"
     >

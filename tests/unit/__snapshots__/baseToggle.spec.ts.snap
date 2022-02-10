@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseToggle render correctly 1`] = `
+<div
+  class="base-toggle"
+>
+  <p
+    class="label"
+  >
+    search by
+  </p>
+  <button
+    class="button aqa-button-first active"
+  >
+    title
+  </button>
+  <button
+    class="button aqa-button-second"
+  >
+    genre
+  </button>
+</div>
+`;
