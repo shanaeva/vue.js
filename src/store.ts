@@ -16,9 +16,6 @@ export default createStore({
     SELECT_FILM_ID(state, id) {
       state.selectedFilmId = id;
     },
-    CLEAR_SELECTED_FILM(state) {
-      state.selectedFilmId = null;
-    },
     FIND_FILM(state, { text, searchBy }) {
       if (searchBy === 'title') {
         state.sortedFilms = state.films.filter((card) => card.title.toLowerCase()
@@ -49,9 +46,6 @@ export default createStore({
   actions: {
     selectFilm({ commit }, id) {
       commit('SELECT_FILM_ID', id);
-    },
-    clearSelectedFilm({ commit }) {
-      commit('CLEAR_SELECTED_FILM');
     },
     findFilm({ commit }, { text, searchBy }) {
       commit('FIND_FILM', { text, searchBy });

@@ -3,6 +3,7 @@ import App from './App.vue';
 import components from './components/index';
 import store from './store';
 import ApiService from '@/api';
+import router from '@/router';
 
 const app = createApp(App);
 
@@ -22,4 +23,4 @@ app.directive('font', {
       el.style.textTransform = 'uppercase';
     }
   },
-}).use(store).mount('#app');
+}).use(store).use(router).mount('#app');

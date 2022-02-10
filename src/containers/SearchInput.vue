@@ -9,7 +9,7 @@
           v-model="text"
         />
       </div>
-      <basic-button @click="findFilm({text, searchBy: activeFlag})">
+      <basic-button @click="onClick">
         SEARCH
       </basic-button>
     </div>
@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import InputField from '../components/InputField.vue';
 import BasicButton from '../components/BasicButton.vue';
 import theme from '@/directives/theme';
@@ -41,6 +41,7 @@ export default defineComponent({
   directives: { theme },
   emits: ['findFilm'],
   data: () => ({ activeFlag: 'title' as activeFlag, text: '' }),
+  computed: { ...mapState(['sortedFilms']) },
   methods: {
     sortByTitle() {
       this.activeFlag = 'title';
@@ -49,6 +50,13 @@ export default defineComponent({
       this.activeFlag = 'genres';
     },
     ...mapActions(['findFilm']),
+    onClick() {
+      this.findFilm({ text: this.text, searchBy: this.activeFlag });
+
+      if (this.sortedFilms.length > 0) {
+        this.$router.push('/');
+      } else { this.$router.push('/notFound'); }
+    },
   },
 });
 </script>
